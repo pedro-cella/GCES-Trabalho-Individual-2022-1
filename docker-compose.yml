@@ -1,0 +1,15 @@
+version: '3.0'
+
+services:
+  database:
+    container_name: database
+    image: postgres:latest
+    volumes:
+      - /var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=library_db
+    ports:
+      - 5432:5432
+    
