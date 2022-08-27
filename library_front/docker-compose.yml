@@ -1,0 +1,19 @@
+version: '3.0'
+
+services:
+  library_front:
+    container_name: library_front
+    build:
+      context: ../library_front
+      dockerfile: Dockerfile
+    command: bash -c "npm start"
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/library_front
+    networks:
+      - frontend
+
+networks:
+  frontend:
+    driver: bridge
