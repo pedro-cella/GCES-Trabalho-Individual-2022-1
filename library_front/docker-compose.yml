@@ -6,7 +6,6 @@ services:
     build:
       context: ../library_front
       dockerfile: Dockerfile
-    command: bash -c "npm start"
     ports:
       - 3000:3000
     volumes:
