@@ -44,7 +44,7 @@ jobs:
         run: bash -c "pip install pytest && pip install django && pip install python-dotenv"
       - name: Rodando testes
         working-directory: ./library_back
-        run: bash -c "export DJANGO_SETTINGS_MODULE=src.settings && django.setup() && python -m unittest discover"
+        run: bash -c "export DJANGO_SETTINGS_MODULE=src.settings && django-admin startproject testproject ."
     
   # lint: 
   #   runs-on: ubuntu-latest
