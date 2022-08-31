@@ -56,7 +56,7 @@ jobs:
         run: bash -c "pip install flake8"
       - name: Executando lint no backend
         working-directory: ./
-        run: bash -c "flake8 --ignore=E501, E123 library_back"
+        run: bash -c "flake8 --ignore=E501,E123 library_back"
       - name: Executando lint no frontend
         working-directory: ./
         run: bash -c "flake8 library_front"
