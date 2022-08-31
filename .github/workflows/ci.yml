@@ -24,21 +24,22 @@ jobs:
         working-directory: ./
         run: docker-compose up -d
 
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
     
-  #     - name: Realizacao dos testes do backend
-  #       working-directory: ./library_back/books/
-  #       run: docker-compose run app rails db:reset
-  #     - name: Run tests
-  #       working-directory: ./aplicacao
-  #       run: docker-compose run app rspec
+      - name: Instalando pytest
+        working-directory: ./
+        run: bash -c "pip install pytest"
+      - name: Rodando testes
+        working-directory: ./library_back/books
+        run: bash -c "pytest tests.py"
     
   lint: 
     runs-on: ubuntu-latest
-    needs: build
+    needs: test
     steps:
       - uses: actions/checkout@v3
 
