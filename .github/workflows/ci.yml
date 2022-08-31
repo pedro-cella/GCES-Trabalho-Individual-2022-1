@@ -6,23 +6,23 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+  # build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
 
-      - name: Criando varivael de ambiente (.env)
-        working-directory: ./library_back
-        run: |
-          echo POSTGRES_DB=library_db >> .env
-          echo POSTGRES_USER=postgres >> .env
-          echo POSTGRES_PASSWORD=password >> .env
-          echo POSTGRES_HOST=database >> .env
-          echo POSTGRES_PORT=5432 >> .env
-          cat .env
-      - name: Build backend e frontend
-        working-directory: ./
-        run: docker-compose up -d
+  #     - name: Criando varivael de ambiente (.env)
+  #       working-directory: ./library_back
+  #       run: |
+  #         echo POSTGRES_DB=library_db >> .env
+  #         echo POSTGRES_USER=postgres >> .env
+  #         echo POSTGRES_PASSWORD=password >> .env
+  #         echo POSTGRES_HOST=database >> .env
+  #         echo POSTGRES_PORT=5432 >> .env
+  #         cat .env
+  #     - name: Build backend e frontend
+  #       working-directory: ./
+  #       run: docker-compose up -d
 
   test:
     runs-on: ubuntu-latest
@@ -32,35 +32,32 @@ jobs:
     
       - name: Instalando pytest e django
         working-directory: ./
-        run: bash -c "pip install pytest && sudo pip install django"
-      - name: Corrigindo Django
-        working-directory: ./library_back/src
-        run: bash -c "export DJANGO_SETTINGS_MODULE=src.settings && django-admin runserver"
+        run: bash -c "pip install pytest && pip install django && pip install python-dotenv"
       - name: Rodando testes
-        working-directory: ./library_back/books
-        run: bash -c "pytest tests.py"
-    
-  lint: 
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Criando variavel de ambiente (.env)
         working-directory: ./library_back
-        run: |
-          echo POSTGRES_DB=library_db >> .env
-          echo POSTGRES_USER=postgres >> .env
-          echo POSTGRES_PASSWORD=password >> .env
-          echo POSTGRES_HOST=database >> .env
-          echo POSTGRES_PORT=5432 >> .env
-          cat .env
-      - name: Instalacao
-        working-directory: ./
-        run: bash -c "pip install flake8"
-      - name: Executando lint no backend
-        working-directory: ./
-        run: bash -c "flake8 --ignore=E501,E123 library_back"
-      - name: Executando lint no frontend
-        working-directory: ./
-        run: bash -c "flake8 library_front"
+        run: bash -c "export DJANGO_SETTINGS_MODULE=src.settings && python -m unittest dicover"
+    
+  # lint: 
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     - uses: actions/checkout@v3
+
+  #     - name: Criando variavel de ambiente (.env)
+  #       working-directory: ./library_back
+  #       run: |
+  #         echo POSTGRES_DB=library_db >> .env
+  #         echo POSTGRES_USER=postgres >> .env
+  #         echo POSTGRES_PASSWORD=password >> .env
+  #         echo POSTGRES_HOST=database >> .env
+  #         echo POSTGRES_PORT=5432 >> .env
+  #         cat .env
+  #     - name: Instalacao
+  #       working-directory: ./
+  #       run: bash -c "pip install flake8"
+  #     - name: Executando lint no backend
+  #       working-directory: ./
+  #       run: bash -c "flake8 --max-line-length=100 library_back"
+  #     - name: Executando lint no frontend
+  #       working-directory: ./
+  #       run: bash -c "flake8 --max-line-length=100 library_front"
