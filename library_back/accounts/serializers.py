@@ -1,3 +1,4 @@
+# flake8: noqa
 from rest_framework.serializers import ModelSerializer, CharField
 from django.contrib.auth.models import User
 
