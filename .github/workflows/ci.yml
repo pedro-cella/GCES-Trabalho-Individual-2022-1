@@ -41,10 +41,10 @@ jobs:
           cat .env
       - name: Instalando pytest e django
         working-directory: ./
-        run: bash -c "pip install pytest && pip install django && pip install python-dotenv"
+        run: bash -c "pip install unittest && pip install django && pip install python-dotenv"
       - name: Rodando testes
         working-directory: ./library_back
-        run: bash -c "export DJANGO_SETTINGS_MODULE=src.settings && django-admin testproject ."
+        run: bash -c "export DJANGO_SETTINGS_MODULE=src.settings && python -m discover"
     
   # lint: 
   #   runs-on: ubuntu-latest
