@@ -53,4 +53,4 @@ jobs:
           cat .env
       - name: Instalacao e execucao do lint
         working-directory: ./
-        run: bash -c "pip install flake8 && flake8 library_back"
+        run: bash -c "pip install flake8 && flake8 library_back && flake8 library_front"
