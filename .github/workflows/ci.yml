@@ -33,6 +33,9 @@ jobs:
       - name: Instalando pytest e django
         working-directory: ./
         run: bash -c "pip install pytest && sudo pip install django"
+      - name: Corrigindo Django
+        workings-directory: ./library_back/src
+        run: bash -c "export DJANGO_SETTINGS_MODULE=src.settings && django-admin runserver"
       - name: Rodando testes
         working-directory: ./library_back/books
         run: bash -c "pytest tests.py"
@@ -43,7 +46,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Criando varivael de ambiente (.env)
+      - name: Criando variavel de ambiente (.env)
         working-directory: ./library_back
         run: |
           echo POSTGRES_DB=library_db >> .env
