@@ -36,11 +36,11 @@ jobs:
   #       working-directory: ./aplicacao
   #       run: docker-compose run app rspec
     
-  # lint: 
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
+  lint: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Install and run lint
-  #       working-directory: ./
-  #       run: docker-compose run app bash -c "gem install rubocop; rubocop --fail-level F"
+      - name: Instalacao e execucao do lint
+        working-directory: ./
+        run: docker-compose run library_back bash -c "pip install flake8 && flake8 library_back"
