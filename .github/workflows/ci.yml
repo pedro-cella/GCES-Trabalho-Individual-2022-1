@@ -29,7 +29,16 @@ jobs:
     # needs: build
     steps:
       - uses: actions/checkout@v3
-    
+
+      - name: Criando varivael de ambiente (.env)
+        working-directory: ./library_back
+        run: |
+          echo POSTGRES_DB=library_db >> .env
+          echo POSTGRES_USER=postgres >> .env
+          echo POSTGRES_PASSWORD=password >> .env
+          echo POSTGRES_HOST=database >> .env
+          echo POSTGRES_PORT=5432 >> .env
+          cat .env
       - name: Instalando pytest e django
         working-directory: ./
         run: bash -c "pip install pytest && pip install django && pip install python-dotenv"
