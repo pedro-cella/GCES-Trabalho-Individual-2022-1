@@ -1,3 +1,4 @@
+# flake8: noqa
 from dataclasses import dataclass
 import unittest
 from .models import Book
