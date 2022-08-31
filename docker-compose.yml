@@ -7,14 +7,14 @@ services:
     volumes:
       - ./var/lib/postgresql/data
     env_file:
-      - .env
+      - ./library_back/.env
     networks:
       - backend
 
   library_back:
     container_name: library_back
     build:
-      context: .
+      context: ./library_back
       dockerfile: Dockerfile
     command: bash -c " 
               python3 manage.py makemigrations &&
@@ -23,12 +23,26 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ../library_back:/library_back
+      - ./library_back:/library_back
     depends_on:
       - database
     networks:
       - backend
 
+  library_front:
+    container_name: library_front
+    build:
+      context: ./library_front
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/library_front
+    networks:
+      - frontend
+
 networks:
   backend:
+    driver: bridge
+  frontend:
     driver: bridge
