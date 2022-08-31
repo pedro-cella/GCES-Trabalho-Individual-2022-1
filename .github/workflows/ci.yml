@@ -30,9 +30,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
     
-      - name: Instalando pytest
+      - name: Instalando pytest e django
         working-directory: ./
-        run: bash -c "pip install pytest"
+        run: bash -c "pip install pytest && sudo pip install django"
       - name: Rodando testes
         working-directory: ./library_back/books
         run: bash -c "pytest tests.py"
