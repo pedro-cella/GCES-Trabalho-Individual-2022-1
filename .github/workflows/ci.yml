@@ -34,7 +34,7 @@ jobs:
         working-directory: ./
         run: bash -c "pip install pytest && sudo pip install django"
       - name: Corrigindo Django
-        workings-directory: ./library_back/src
+        working-directory: ./library_back/src
         run: bash -c "export DJANGO_SETTINGS_MODULE=src.settings && django-admin runserver"
       - name: Rodando testes
         working-directory: ./library_back/books
