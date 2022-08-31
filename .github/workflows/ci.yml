@@ -51,6 +51,12 @@ jobs:
           echo POSTGRES_HOST=database >> .env
           echo POSTGRES_PORT=5432 >> .env
           cat .env
-      - name: Instalacao e execucao do lint
+      - name: Instalacao
         working-directory: ./
-        run: bash -c "pip install flake8 && flake8 library_back && flake8 library_front"
+        run: bash -c "pip install flake8"
+      - name: Executando lint no backend
+        working-directory: ./
+        run: bash -c "flake8 library_back"
+      - name: Executando lint no frontend
+        working-directory: ./
+        run: bash -c "flake8 library_front"
