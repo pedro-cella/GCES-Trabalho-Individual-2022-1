@@ -5,7 +5,6 @@ on:
     workflows: CI
     types:
       - completed
-  workflow_calls:
 
 jobs:
   use-build:
