@@ -1,0 +1,11 @@
+version: "3.0"
+
+services:
+  library_back:
+    build: .
+    command:
+      - bash -c "python -m manage test"
+    volumes:
+      - .:/library_back
+    ports:
+      - "8000:8000"

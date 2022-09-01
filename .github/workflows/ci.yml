@@ -39,12 +39,12 @@ jobs:
           echo POSTGRES_HOST=database >> .env
           echo POSTGRES_PORT=5432 >> .env
           cat .env
-      - name: Build backend e frontend
+      - name: Roda o banco
         working-directory: ./
-        run: docker-compose up database
+        run: docker-compose up -d
       - name: Rodando testes
-        working-directory: ./library_back
-        run: bash -c "python -m manage teste"
+        working-directory: ./
+        run: docker-compose -f docker-compose-test.yml up --build
     
   # lint: 
   #   runs-on: ubuntu-latest
