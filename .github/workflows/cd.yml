@@ -7,36 +7,37 @@ on:
       - completed
 
 jobs:
-  build:
-    name: Deploy
-    runs-on: ubuntu-latest
-    before_script: 
-      - git config --global init.defaultBranch trunk
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+  use-build:
+    # adapt to point to the current repo
+    # https://docs.github.com/en/actions/learn-github-actions/reusing-workflows#calling-a-reusable-workflow
+    uses: pedro-cella/GCES-Trabalho-Individual-2022-1/.github/workflows/ci.yml@main
 
-      - name: Login to Docker Hub
+  deploy:
+    # only run the 'deploy' job if the 'use-build' job passes
+    # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idneeds
+    needs: use-build
+
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+
+    steps:
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      
-      - name: SetUp Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Build and Push Backend
+      -
+        name: Build and push
         uses: docker/build-push-action@v2
         with:
           context: "{{defaultContext}}:library_back"
-          file: ./library_back/Dockerfile
+          # file: "/aplicacao/Dockerfile"
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gces-2022-1:latest
-
-      - name: Build and Push Frontend
-        uses: docker/build-push-action@v2
-        with:
-          context: ./library_front
-          file: Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gces-2022-1:latest
+          tags: pedrocella/gces-2022-1:latest
