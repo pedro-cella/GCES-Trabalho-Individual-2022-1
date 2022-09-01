@@ -3,9 +3,6 @@ version: "3.0"
 services:
   database:
     image: postgres:latest
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    restart: always
     env_file:
       - .env
     environment:
@@ -14,8 +11,11 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    volumes:
+      - database:/var/lib/postgresql/data/
+    restart: always
 
-  web-test:
+  librar_back-test:
     build: .
     command:
       - /bin/bash
@@ -29,4 +29,4 @@ services:
       - database
 
 volumes:
-  postgres_data:
+  database:
