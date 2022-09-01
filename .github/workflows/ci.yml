@@ -41,7 +41,7 @@ jobs:
           cat .env
       - name: Roda o banco
         working-directory: ./
-        run: docker-compose up -d
+        run: docker-compose database up -d
       - name: Rodando testes
         working-directory: ./
         run: docker-compose -f docker-compose-test.yml up --build
