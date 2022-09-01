@@ -21,6 +21,7 @@ jobs:
         with:
           image: pedrocella/gces-2022-1
           registry: docker.io
+          directory: ./library_back
           dockerfile: ./library_back/Dockerfile
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
