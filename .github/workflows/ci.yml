@@ -11,7 +11,7 @@ jobs:
   #   steps:
   #     - uses: actions/checkout@v3
 
-  #     - name: Criando varivael de ambiente (.env)
+  #     - name: Criando variavel de ambiente (.env)
   #       working-directory: ./library_back
   #       run: |
   #         echo POSTGRES_DB=library_db >> .env
@@ -39,6 +39,9 @@ jobs:
           echo POSTGRES_HOST=database >> .env
           echo POSTGRES_PORT=5432 >> .env
           cat .env
+      - name: Build backend e frontend
+        working-directory: ./
+        run: docker-compose up database
       - name: Rodando testes
         working-directory: ./library_back
         run: bash -c "python -m manage teste"
