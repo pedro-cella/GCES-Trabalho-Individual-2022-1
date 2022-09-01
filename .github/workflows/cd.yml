@@ -20,7 +20,7 @@ jobs:
         uses: mr-smithers-excellent/docker-build-push@v5  
         with:
           image: pedrocella/gces-2022-1
-          registry: registry-url.io
+          registry: docker.io
           dockerfile: ./library_back/Dockerfile
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
