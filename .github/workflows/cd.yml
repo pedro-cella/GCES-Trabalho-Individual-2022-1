@@ -33,3 +33,6 @@ jobs:
           context: ./library_back
           file: Dockerfile
           push: true
+          tags: |
+            pedro-cella/GCES-Trabalho-Individual-2022-1:latest
+    
