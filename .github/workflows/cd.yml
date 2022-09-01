@@ -23,6 +23,7 @@ jobs:
           registry: docker.io
           directory: ./library_back
           dockerfile: ./library_back/Dockerfile
+          tags: library_back,latest
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
@@ -33,6 +34,7 @@ jobs:
           registry: docker.io
           directory: ./library_front
           dockerfile: ./library_front/Dockerfile
+          tags: library_front,latest
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
     
