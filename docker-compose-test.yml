@@ -1,11 +1,32 @@
 version: "3.0"
 
 services:
-  library_back:
+  database:
+    image: postgres:latest
+    volumes:
+      - database:/var/lib/postgresql/data/
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=library_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 5432:5432
+
+  web-test:
     build: .
     command:
-      - bash -c "python -m manage test"
+      - bash -c "python manage.py makemigrations && python manage.py migrate && python -m manage test"
     volumes:
       - .:/library_back
     ports:
       - "8000:8000"
+    depends_on:
+      - database
+
+volumes:
+  database:
+
+    
