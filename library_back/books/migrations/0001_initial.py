@@ -17,11 +17,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Book',
             fields=[
-                ('id', 
-                models.BigAutoField(auto_created=True,
-                                    primary_key=True,
-                                    serialize=False,
-                                    verbose_name='ID')),
+                ('id', models.BigAutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
                 ('title', models.CharField(
                     max_length=150
                 )),
@@ -43,6 +43,9 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='book',
-            constraint=models.UniqueConstraint(fields=('title', 'author', 'release_year'), name='unique_together_book_keys'),
+            constraint=models.UniqueConstraint(
+                fields=('title', 'author', 'release_year'),
+                name='unique_together_book_keys'
+            ),
         ),
     ]
