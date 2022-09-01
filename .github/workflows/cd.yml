@@ -7,16 +7,7 @@ on:
       - completed
 
 jobs:
-  use-build:
-    # adapt to point to the current repo
-    # https://docs.github.com/en/actions/learn-github-actions/reusing-workflows#calling-a-reusable-workflow
-    uses: pedro-cella/GCES-Trabalho-Individual-2022-1/.github/workflows/ci.yml@main
-
   deploy:
-    # only run the 'deploy' job if the 'use-build' job passes
-    # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idneeds
-    needs: use-build
-
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
 
@@ -24,15 +15,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: QEMU
+        uses: docker/setup-qemu-action#v1
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Set up Docker Build Backend
-        working-directory: ./library_back
-        run: docker build . --file Dockerfile
-
-      - name: Docker Push
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/gces-2022-1
+      - name: Docker Build and Push
+        uses: docker/build-oush-action@v2
+        with:
+          context: ./library_back
+          file: Dockerfile
+          push: true
