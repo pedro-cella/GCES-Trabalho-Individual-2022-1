@@ -29,16 +29,22 @@ As etapas de 4 e 5 são relacionadas à configuração do pipeline de CI e CD.
 
 A versão inicial do sistema contém um aplicação Django no backend cujo funcionamento requer uma instalação de um banco de dados Postgres. A primeira etapa do trabalho é de configurar um container somente para o banco de dados com as credenciais especificadas na descrição da aplicação e testar o funcionamento do mesmo.
 
+<b>Commit:</b> Adicionando dockerização do banco de dados <22a1f3d06d591adc158aa75b281e404b729314ac>
+
 ### 2. Containerização da Aplicação + Banco
 
 Nesta segunda etapa, tanto o backend quanto o banco de dados deverão estar funcionando em containers individuais.
 
 Deverá ser utilizado um orquestrador (Docker Compose) para gerenciar comunicação entre os containers além do uso de credenciais, networks, volumes, entre outras configurações necessárias para a correta execução da aplicação.
 
+<b>Commit:</b> Dockerizando app + banco (conexao estabelecida) <f4e60fec38beff252edd916bf847b826b167679e>
+
 ### 3. Configuração do Frontend
 
 A tereceira etapa do trabalho consiste em dockerizar o frontend que é uma aplicação em React seguindo as instruções do README e incluindo a mesma no Docker Compose.
 
+<b>Commit:</b> Adicionando dockerizacao do frontend <8357b2ce52b2e9d5a8867fbc85feac5ac36a722c>
+  
 ### 4. Servindo a aplicação com o Nginx
 
 A última etapa de configuração do ambiente é a de servir a aplicação através do Nginx. Neste caso, será necessário configurar o Nginx em um container e adicioná-lo ao Docker Compose.
@@ -46,6 +52,9 @@ A última etapa de configuração do ambiente é a de servir a aplicação atrav
 [Referência 1](https://fga-eps-mds.github.io/mdseps.github.io/Colocando-a-aplicação-em-produção-com-NGINX/)
 
 [Referência 2](https://blog.devgenius.io/using-nginx-to-serve-react-application-static-vs-proxy-69b85f368e6c)
+ 
+ 
+<b>Commit:</b> Adicionando dockerizacao nginx <dd32d96069ef80ca6d96317d29b32c363c6780e7>
 
 ### 5. Integração Contínua (CI)
 
@@ -59,11 +68,15 @@ Requisitos da configuração da Integração Contínua (Gitlab ou Github) inclue
 - Build
 - Test
 - Lint
+  
+<b>Commit:</b> Adicionando CI (build + tests + lint corrigido) <06be05773d64e201822031a1eb582d677c5891f8>
 
 ### 6. Deploy Contínuo (CD)
 
 A etapa final do trabalho deverá ser realizada à partir do deploy automático da aplicação que deve ser realizado após passar sem erros em todas as etapas de CI.
 
+<b>Commit:</b> Adicionando CD <54678189e6c843c46475b6e5fdaa95731495f7af>
+  
 ## Avaliação
 
 A avaliação do trabalho será feita à partir da correta implementação de cada etapa 1 a 6. A avaliação será feita de maneira **quantitativa** (se foi realizado a implementação + documentação), e **qualitativa** (como foi implementado, entendimento dos conceitos na prática, complexidade da solução). Para isso, faça os **commits atômicos, bem documentados, completos** a fim de facilitar o entendimento e avaliação do seu trabalho. Lembrando o trabalho é individual.
